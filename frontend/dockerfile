@@ -1,18 +1,8 @@
-# mohamedzrk-isi/frontend/Dockerfile
-FROM node:18
-
+FROM python:3.11-slim
 WORKDIR /app
-
-# 1) Copiar package.json 
-COPY package.json ./
-
-# 2) Instalar dependencias
-RUN npm install
-
-# 3) Copiar solo el código de la app
-COPY public/ ./public
-COPY src/ ./src
-
-# 4) Exponer puerto y arrancar
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py .
+COPY templates/ ./templates
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=3000"]

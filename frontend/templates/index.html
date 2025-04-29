@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flight Comparator</title>
+</head>
+<body>
+  <h1>Comparador de Vuelos</h1>
+  <form method="post">
+    <input name="origin" placeholder="Origin (IATA)" required>
+    <input name="destination" placeholder="Destination (IATA)" required>
+    <input type="date" name="travel_date" required>
+    <button type="submit">Search</button>
+  </form>
+
+  {% if flights %}
+    <h2>Results:</h2>
+    <ul>
+      {% for f in flights %}
+        <li>
+          {{f.provider}} — {{f.origin}} → {{f.destination}} on {{f.travel_date}}: {{f.price}}€
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</body>
+</html>
