@@ -1,0 +1,18 @@
+# mohamedzrk-isi/frontend/Dockerfile
+FROM node:18
+
+WORKDIR /app
+
+# 1) Copiar package.json 
+COPY package.json ./
+
+# 2) Instalar dependencias
+RUN npm install
+
+# 3) Copiar solo el código de la app
+COPY public/ ./public
+COPY src/ ./src
+
+# 4) Exponer puerto y arrancar
+EXPOSE 3000
+CMD ["npm", "start"]

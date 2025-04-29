@@ -1,0 +1,24 @@
+services:
+  search-flight:
+    build: ./services/search-flight
+    container_name: search_flight
+    ports:
+      - "4000:4000"
+
+  api-gateway:
+    build: ./services/api-gateway
+    container_name: api_gateway
+    ports:
+      - "3001:3001"
+    environment:
+      - SEARCH_SERVICE_URL=http://search-flight:4000
+    depends_on:
+      - search-flight
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
